@@ -6,6 +6,12 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		69D43DD22E6C9B410002B025 /* Resolver in Frameworks */ = {isa = PBXBuildFile; productRef = 69D43DD12E6C9B410002B025 /* Resolver */; };
+		69D43DD42E6C9B410002B025 /* Resolver-Static in Frameworks */ = {isa = PBXBuildFile; productRef = 69D43DD32E6C9B410002B025 /* Resolver-Static */; };
+		69D43DD72E6C9B520002B025 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 69D43DD62E6C9B520002B025 /* Alamofire */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		691F4CF72E6C3B9E00F8351A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -23,6 +29,19 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		69D43DC92E6C9A190002B025 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		691F4CE92E6C3B9D00F8351A /* quizmaster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = quizmaster.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		691F4CF62E6C3B9E00F8351A /* quizmasterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = quizmasterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -30,9 +49,9 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		691F4CEB2E6C3B9D00F8351A /* quizmaster */ = {
+		691F4CEB2E6C3B9D00F8351A /* App */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = quizmaster;
+			path = App;
 			sourceTree = "<group>";
 		};
 		691F4CF92E6C3B9E00F8351A /* quizmasterTests */ = {
@@ -45,6 +64,26 @@
 			path = quizmasterUITests;
 			sourceTree = "<group>";
 		};
+		691F4D692E6C4A4D00F8351A /* Presentation */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		691F4D782E6C4A5100F8351A /* Data */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Data;
+			sourceTree = "<group>";
+		};
+		691F4D7D2E6C4A5500F8351A /* DI */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = DI;
+			sourceTree = "<group>";
+		};
+		691F4D8D2E6C4A5D00F8351A /* Domain */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Domain;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +91,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69D43DD72E6C9B520002B025 /* Alamofire in Frameworks */,
+				69D43DD42E6C9B410002B025 /* Resolver-Static in Frameworks */,
+				69D43DD22E6C9B410002B025 /* Resolver in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,10 +117,14 @@
 		691F4CE02E6C3B9D00F8351A = {
 			isa = PBXGroup;
 			children = (
-				691F4CEB2E6C3B9D00F8351A /* quizmaster */,
+				691F4D8D2E6C4A5D00F8351A /* Domain */,
+				691F4CEB2E6C3B9D00F8351A /* App */,
 				691F4CF92E6C3B9E00F8351A /* quizmasterTests */,
 				691F4D032E6C3B9E00F8351A /* quizmasterUITests */,
 				691F4CEA2E6C3B9D00F8351A /* Products */,
+				691F4D692E6C4A4D00F8351A /* Presentation */,
+				691F4D782E6C4A5100F8351A /* Data */,
+				691F4D7D2E6C4A5500F8351A /* DI */,
 			);
 			sourceTree = "<group>";
 		};
@@ -102,16 +148,24 @@
 				691F4CE52E6C3B9D00F8351A /* Sources */,
 				691F4CE62E6C3B9D00F8351A /* Frameworks */,
 				691F4CE72E6C3B9D00F8351A /* Resources */,
+				69D43DC92E6C9A190002B025 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				691F4CEB2E6C3B9D00F8351A /* quizmaster */,
+				691F4CEB2E6C3B9D00F8351A /* App */,
+				691F4D692E6C4A4D00F8351A /* Presentation */,
+				691F4D782E6C4A5100F8351A /* Data */,
+				691F4D7D2E6C4A5500F8351A /* DI */,
+				691F4D8D2E6C4A5D00F8351A /* Domain */,
 			);
 			name = quizmaster;
 			packageProductDependencies = (
+				69D43DD12E6C9B410002B025 /* Resolver */,
+				69D43DD32E6C9B410002B025 /* Resolver-Static */,
+				69D43DD62E6C9B520002B025 /* Alamofire */,
 			);
 			productName = quizmaster;
 			productReference = 691F4CE92E6C3B9D00F8351A /* quizmaster.app */;
@@ -195,6 +249,10 @@
 			);
 			mainGroup = 691F4CE02E6C3B9D00F8351A;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				69D43DD02E6C9B410002B025 /* XCRemoteSwiftPackageReference "Resolver" */,
+				69D43DD52E6C9B520002B025 /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 691F4CEA2E6C3B9D00F8351A /* Products */;
 			projectDirPath = "";
@@ -397,6 +455,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -409,6 +468,10 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tnm.quizmaster;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -424,6 +487,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -436,6 +500,10 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tnm.quizmaster;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -550,6 +618,43 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		69D43DD02E6C9B410002B025 /* XCRemoteSwiftPackageReference "Resolver" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hmlongco/Resolver.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.5.1;
+			};
+		};
+		69D43DD52E6C9B520002B025 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.10.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		69D43DD12E6C9B410002B025 /* Resolver */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 69D43DD02E6C9B410002B025 /* XCRemoteSwiftPackageReference "Resolver" */;
+			productName = Resolver;
+		};
+		69D43DD32E6C9B410002B025 /* Resolver-Static */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 69D43DD02E6C9B410002B025 /* XCRemoteSwiftPackageReference "Resolver" */;
+			productName = "Resolver-Static";
+		};
+		69D43DD62E6C9B520002B025 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 69D43DD52E6C9B520002B025 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 691F4CE12E6C3B9D00F8351A /* Project object */;
 }
