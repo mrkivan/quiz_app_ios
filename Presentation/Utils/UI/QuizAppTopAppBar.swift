@@ -40,7 +40,7 @@ struct QuizAppTopAppBar: View {
                 .foregroundColor(.white)
                 .lineLimit(1)
                 .truncationMode(.tail)
-                .frame(maxWidth: .infinity, alignment: .leading)
+                .frame(maxWidth: .infinity, alignment: .center) // ✅ center align
 
             // Actions
             HStack(spacing: 16) {

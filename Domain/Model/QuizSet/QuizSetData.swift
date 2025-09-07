@@ -1,6 +1,6 @@
 import Foundation
 
-struct QuizSetData: Codable {
+struct QuizSetData: Codable, Hashable {
     let total: Int
     let title: String
     let topic: String
@@ -8,7 +8,7 @@ struct QuizSetData: Codable {
     let sectionId: Int
     let sections: [SectionItem]
 
-    struct SectionItem: Codable {
+    struct SectionItem: Codable, Hashable {
         let title: String
         let description: String
         let position: Int

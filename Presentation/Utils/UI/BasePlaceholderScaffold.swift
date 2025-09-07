@@ -6,11 +6,11 @@ struct PlaceholderScaffold<Content: View, T>: View {
     let uiState: QuizAppUIState<T>
     let onRetryClicked: () -> Void
     let content: (T) -> Content   // only pass the success data
-
+    
     var body: some View {
         VStack(spacing: 0) {
             QuizAppTopAppBar(toolbarConfig: toolbarConfig)
-
+            
             Group {
                 switch uiState {
                 case .loading:
@@ -27,7 +27,6 @@ struct PlaceholderScaffold<Content: View, T>: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
             }
-            .padding()
         }
     }
 }

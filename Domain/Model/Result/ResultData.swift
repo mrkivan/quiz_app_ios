@@ -1,6 +1,6 @@
 import Foundation
 
-struct ResultData: Codable {
+struct ResultData: Codable, Hashable {
     let quizTitle: String?
     let quizDescription: String?
     let resultItems: [Item]
@@ -8,7 +8,7 @@ struct ResultData: Codable {
     let totalQuestions: Int
     let resultPercentage: Int
 
-    struct Item: Codable {
+    struct Item: Codable, Hashable {
         let questionId: Int
         let question: String
         let result: Bool

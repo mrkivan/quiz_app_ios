@@ -50,7 +50,7 @@ struct QuizProgressWithShape: View {
     let totalQuestions: Int
     
     var body: some View {
-        Text("Question \(currentQuestion) of \(totalQuestions)")
+        Text("\(currentQuestion) / \(totalQuestions)")
             .font(.title3)
             .foregroundColor(.white)
             .padding(.horizontal, 8)
