@@ -16,8 +16,8 @@ struct ResultReportCard: View {
 
             HStack {
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("Total Questions: \(data.totalQuestions)")
-                    Text("Correct Answers: \(data.totalCorrectItems)")
+                    Text(L10n.textTotalQuestions(data.totalQuestions))
+                    Text(L10n.textCorrectAnswers(data.totalCorrectItems))
                 }
 
                 Spacer()

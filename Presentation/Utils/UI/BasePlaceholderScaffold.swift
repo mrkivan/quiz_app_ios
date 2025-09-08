@@ -57,7 +57,7 @@ struct ErrorView: View {
 
             Button(action: onRetryClicked) {
                 HStack {
-                    Text("Retry")
+                    Text(L10n.retryButton)
                     Image(systemName: "arrow.clockwise")
                         .font(.system(size: 18))
                 }

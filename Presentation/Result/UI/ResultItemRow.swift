@@ -9,7 +9,7 @@ struct ResultItemRow: View {
             Text(item.question)
                 .fontWeight(.bold)
 
-            Text("Answer")
+            Text(L10n.textAnswer)
                 .fontWeight(.semibold)
                 .padding(.top, 4)
 

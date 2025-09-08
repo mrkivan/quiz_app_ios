@@ -72,9 +72,9 @@ struct QuizScreenView: View {
         }
         .alert(isPresented: $showExitConfirmationDialog) {
             Alert(
-                title: Text("Exit Quiz"),
-                message: Text("Are you sure you want to exit?"),
-                primaryButton: .destructive(Text("Confirm")) {
+                title: Text(L10n.alertExitMessage),
+                message: Text(L10n.alertExitMessage),
+                primaryButton: .destructive(Text(L10n.confirmButton)) {
                     print("Exit screen")  // replace with popBackStack logic
                     if !path.isEmpty {
                         path.removeLast()

@@ -17,7 +17,7 @@ struct QuizButtons: View {
                 Button(action: {
                     showSkipDialog = true
                 }) {
-                    Text("Skip")
+                    Text(L10n.skipButton)
                         .frame(maxWidth: .infinity)
                 }
                 .disabled(
@@ -31,7 +31,7 @@ struct QuizButtons: View {
                 Button(action: {
                     showSubmitConfirmationDialog = true
                 }) {
-                    Text("Submit")
+                    Text(L10n.submitButton)
                         .frame(maxWidth: .infinity)
                 }
                 .disabled(
@@ -48,8 +48,11 @@ struct QuizButtons: View {
                         moveToNextQuestion()
                     }
                 }) {
-                    Text(quizState.isLastItem ? "Result" : "Next")
-                        .frame(maxWidth: .infinity)
+                    Text(
+                        quizState.isLastItem
+                            ? L10n.resultButton : L10n.nextButton
+                    )
+                    .frame(maxWidth: .infinity)
                 }
                 .disabled(!(quizState.isSubmitted || quizState.isLastItem))
                 .buttonStyle(.borderedProminent)
@@ -59,30 +62,31 @@ struct QuizButtons: View {
         }
         // Submit Confirmation Alert
         .alert(
-            "Submit Answer?",
+            L10n.alertSubmitAnswerTitle,
             isPresented: $showSubmitConfirmationDialog
         ) {
-            Button("Confirm", role: .destructive) {
+            Button(L10n.confirmButton, role: .destructive) {
                 submitAnswer()
             }
-            Button("Cancel", role: .cancel) {}
+            Button(L10n.cancelButton, role: .cancel) {}
         } message: {
-            Text("Are you sure you want to submit your answer?")
+            Text(L10n.alertSubmitAnswerMessage)
         }
+        .tint(.blue)
 
         // Skip Confirmation Alert
         .alert(
-            "Skip Question?",
+            L10n.alertSkipQuestionTitle,
             isPresented: $showSkipDialog
         ) {
-            Button("Skip", role: .destructive) {
+            Button(L10n.skipButton, role: .destructive) {
                 skipQuestion()
             }
-            .tint(.blue)
-            Button("Cancel", role: .cancel) {}
+            Button(L10n.cancelButton, role: .cancel) {}
         } message: {
-            Text("Are you sure you want to skip this question?")
+            Text(L10n.alertSkipQuestionMessage)
         }
+        .tint(.blue)
     }
 }
 

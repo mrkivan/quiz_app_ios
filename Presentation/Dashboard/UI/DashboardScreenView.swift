@@ -12,7 +12,7 @@ struct DashboardScreenView: View {
         NavigationStack(path: $path) {
             PlaceholderScaffold(
                 navConfig: NavigationBarConfig(
-                    title: "Quiz Master: Kotlin, Java & Android",
+                    title: L10n.dashboardTitleString,
                 ),
                 uiState: viewModel.state,
                 onRetryClicked: {
@@ -50,7 +50,6 @@ struct DashboardScreenView: View {
                                 path.append(.quizSet(quizSetData: itemData))
                             }
                             print("Navigate to quiz sets: \(item.title)")
-                        // Integrate NavigationStack navigation here
                         }
                     }
                     .store(in: &cancellables)

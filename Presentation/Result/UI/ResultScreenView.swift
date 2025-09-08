@@ -37,10 +37,16 @@ struct ResultScreenView: View {
 
                 // Tabs
                 let tabs: [(String, [ResultData.Item])] = [
-                    ("Correct (\(data.totalCorrectItems))", data.correctItems),
-                    ("Skipped (\(data.totalSkippedItems))", data.skippedItems),
                     (
-                        "Incorrect (\(data.totalInCorrectItems))",
+                        L10n.textCorrectItems(data.totalCorrectItems),
+                        data.correctItems
+                    ),
+                    (
+                        L10n.textSkippedItems(data.totalSkippedItems),
+                        data.skippedItems
+                    ),
+                    (
+                        L10n.textIncorrectItems(data.totalInCorrectItems),
                         data.incorrectItems
                     ),
                 ].filter { !$0.1.isEmpty }  // remove empty tabs
