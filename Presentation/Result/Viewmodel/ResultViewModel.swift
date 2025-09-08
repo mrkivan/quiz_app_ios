@@ -1,27 +1,32 @@
-import Resolver
 import Combine
+import Resolver
+
 class ResultViewModel: BaseViewModel<ResultScreenData> {
     private let getResultDataUseCase: GetResultDataUseCase
     private var cancellables = Set<AnyCancellable>()
-    
+
     init(getResultDataUseCase: GetResultDataUseCase = Resolver.resolve()) {
         self.getResultDataUseCase = getResultDataUseCase
         super.init()
     }
-    
+
     func getResult(key: String) {
         setLoading()
-        
+
         getResultDataUseCase.execute(key: key)
             .sink { [weak self] result in
                 guard let self = self else { return }
-                
+
                 if let result = result {
                     // Could be optimized with single pass for large items
                     let correctItems = result.resultItems.filter { $0.result }
-                    let skippedItems = result.resultItems.filter { $0.isSkipped }
-                    let incorrectItems = result.resultItems.filter { !$0.result && !$0.isSkipped }
-                    
+                    let skippedItems = result.resultItems.filter {
+                        $0.isSkipped
+                    }
+                    let incorrectItems = result.resultItems.filter {
+                        !$0.result && !$0.isSkipped
+                    }
+
                     let screenData = ResultScreenData(
                         quizTitle: result.quizTitle,
                         quizDescription: result.quizDescription,

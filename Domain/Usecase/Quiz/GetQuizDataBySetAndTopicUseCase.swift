@@ -7,7 +7,8 @@ struct GetQuizDataBySetAndTopicUseCase {
         self.repository = repository
     }
 
-    func execute(fileName: String) -> AnyPublisher<Resource<[QuizData]>, Never> {
+    func execute(fileName: String) -> AnyPublisher<Resource<[QuizData]>, Never>
+    {
         return repository.getQuizzesBySetAndTopic(fileName: fileName)
     }
 }

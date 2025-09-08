@@ -14,10 +14,18 @@ struct GetQuizSetListUseCase {
                 if let data = quizSetData {
                     return Resource.success(data)
                 } else {
-                    return Resource.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "No quiz data found"]))
+                    return Resource.failure(
+                        NSError(
+                            domain: "",
+                            code: -1,
+                            userInfo: [
+                                NSLocalizedDescriptionKey: "No quiz data found"
+                            ]
+                        )
+                    )
                 }
             }
-            .prepend(.loading) // emits loading first
+            .prepend(.loading)  // emits loading first
             .eraseToAnyPublisher()
     }
 }

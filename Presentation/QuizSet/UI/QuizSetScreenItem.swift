@@ -1,14 +1,14 @@
 // MARK: - Components
 
+import SwiftUI
 import SwiftUICore
 import XCUIAutomation
-import SwiftUI
 
 struct QuizSetScreenItem: View {
     let quizSetItemData: QuizSetData.SectionItem
     let onItemClick: () -> Void
     let navigateToResultView: (String) -> Void
-    
+
     var body: some View {
         ZStack(alignment: .leading) {
             // Main Card
@@ -18,12 +18,12 @@ struct QuizSetScreenItem: View {
                         .font(.headline)
                         .foregroundColor(.primary)
                         .lineLimit(2)
-                    
+
                     Text(quizSetItemData.description)
                         .font(.subheadline)
                         .foregroundColor(.secondary)
                         .lineLimit(3)
-                    
+
                     if let result = quizSetItemData.previousResult {
                         PreviousResultButton(resultData: result) {
                             navigateToResultView(quizSetItemData.fileName)
@@ -35,12 +35,17 @@ struct QuizSetScreenItem: View {
                 .background(
                     RoundedRectangle(cornerRadius: 12)
                         .fill(Color(.systemBackground))
-                        .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
+                        .shadow(
+                            color: .black.opacity(0.1),
+                            radius: 4,
+                            x: 0,
+                            y: 2
+                        )
                 )
             }
             .buttonStyle(.plain)
-            .padding(.leading, 28) // leave space for circle number
-            
+            .padding(.leading, 28)  // leave space for circle number
+
             // Circle with Number
             CircleWithNumber(number: quizSetItemData.position)
                 .offset(x: 0, y: 0)
@@ -54,7 +59,7 @@ struct QuizSetScreenItem: View {
 struct PreviousResultButton: View {
     let resultData: ResultData
     let navigateToResultView: () -> Void
-    
+
     var body: some View {
         VStack {
             Spacer(minLength: 8)
@@ -68,6 +73,7 @@ struct PreviousResultButton: View {
                 .padding(.vertical, 8)
             }
             .buttonStyle(.borderedProminent)
+            .tint(.blue)
         }
     }
 }
@@ -75,7 +81,7 @@ struct PreviousResultButton: View {
 // MARK: - Preview
 struct QuizSetScreenItem_Previews: PreviewProvider {
     static var previews: some View {
-        
+
         QuizSetScreenItem(
             quizSetItemData: QuizSetData.SectionItem.mock(),
             onItemClick: {},

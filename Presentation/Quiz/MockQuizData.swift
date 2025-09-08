@@ -5,7 +5,8 @@ let mockQuizData = QuizData(
     answerCellType: 0,
     selectedOptions: [],
     answerSectionTitle: "",
-    explanation: "The androidx.wear.compose library provides composables and utilities specifically designed for Wear OS development.",
+    explanation:
+        "The androidx.wear.compose library provides composables and utilities specifically designed for Wear OS development.",
     answerCellList: [
         QuizData.AnswerCell(
             answerId: 1,
@@ -34,13 +35,14 @@ let mockQuizData = QuizData(
             data: "D. androidx.constraintlayout",
             isItAnswer: false,
             position: 4
-        )
+        ),
     ],
     correctAnswer: QuizData.CorrectAnswer(
         questionId: 1,
         answerId: [2],
         answer: ["B. androidx.wear.compose"],
-        explanation: "The androidx.wear.compose library provides composables and utilities specifically designed for Wear OS development."
+        explanation:
+            "The androidx.wear.compose library provides composables and utilities specifically designed for Wear OS development."
     ),
-    
+
 )

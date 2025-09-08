@@ -1,11 +1,11 @@
 // MARK: - Result Report Card
 
-import SwiftUICore
 import SwiftUI
+import SwiftUICore
 
 struct ResultReportCard: View {
     let data: ResultScreenData
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             if let desc = data.quizDescription {
@@ -13,15 +13,15 @@ struct ResultReportCard: View {
                     .font(.body)
                     .fontWeight(.bold)
             }
-            
+
             HStack {
                 VStack(alignment: .leading, spacing: 8) {
                     Text("Total Questions: \(data.totalQuestions)")
                     Text("Correct Answers: \(data.totalCorrectItems)")
                 }
-                
+
                 Spacer()
-                
+
                 CircularPercentageProgress(
                     progress: Double(data.resultPercentage) / 100.0,
                     size: 60,

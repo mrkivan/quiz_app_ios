@@ -2,5 +2,5 @@ import Foundation
 
 struct QuizSetScreenData: Codable, Hashable {
     var quizTopic: String
-    var quizSetTitle : String
+    var quizSetTitle: String
 }

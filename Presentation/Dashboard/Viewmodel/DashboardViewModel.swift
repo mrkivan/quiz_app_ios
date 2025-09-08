@@ -1,15 +1,16 @@
 import Combine
-import SwiftUI
 import Resolver
+import SwiftUI
 
 class DashboardViewModel: BaseViewModel<DashboardData> {
     let navigationEvents = PassthroughSubject<DashboardNavEvent, Never>()
-    
+
     private var cancellables = Set<AnyCancellable>()
 
     private let getDashboardDataUseCase: GetDashboardDataUseCase
 
-    init(getDashboardDataUseCase: GetDashboardDataUseCase = Resolver.resolve()) {
+    init(getDashboardDataUseCase: GetDashboardDataUseCase = Resolver.resolve())
+    {
         self.getDashboardDataUseCase = getDashboardDataUseCase
         super.init()
     }

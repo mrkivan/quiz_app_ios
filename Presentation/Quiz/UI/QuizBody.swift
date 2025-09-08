@@ -8,7 +8,7 @@ struct QuizBody: View {
     var skipQuestion: () -> Void
     var moveToNextQuestion: () -> Void
     var navigateToResultScreen: () -> Void
-    
+
     var body: some View {
         VStack(spacing: 0) {
             // Question + Progress
@@ -17,24 +17,28 @@ struct QuizBody: View {
                     .font(.headline)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.trailing, 8)
-                
+
                 QuizProgressWithShape(
                     currentQuestion: quizState.currentQuestionNumber,
                     totalQuestions: quizState.totalQuestions
                 )
             }
             .padding(.bottom, 16)
-            
+
             // Question & Answer Options
             VStack {
                 Spacer().frame(height: 16)
-                
+
                 ScrollView {
                     LazyVStack(spacing: 8) {
-                        ForEach(quizData.answerCellList, id: \.answerId) { answer in
-                            let isCorrect = quizData.correctAnswer.answerId.contains(answer.answerId)
-                            let isSelected = quizState.selectedAnswers.contains(answer.answerId)
-                            
+                        ForEach(quizData.answerCellList, id: \.answerId) {
+                            answer in
+                            let isCorrect = quizData.correctAnswer.answerId
+                                .contains(answer.answerId)
+                            let isSelected = quizState.selectedAnswers.contains(
+                                answer.answerId
+                            )
+
                             let backgroundColor: Color = {
                                 if !quizState.isSubmitted {
                                     return .clear
@@ -46,7 +50,7 @@ struct QuizBody: View {
                                     return .clear
                                 }
                             }()
-                            
+
                             Button(action: {
                                 guard !quizState.isSubmitted else { return }
                                 if quizData.answerCellType == 0 {
@@ -56,43 +60,64 @@ struct QuizBody: View {
                                     // Multiple choice
                                     if isSelected {
                                         updateSelectedAnswers(
-                                            quizState.selectedAnswers.filter { $0 != answer.answerId }
+                                            quizState.selectedAnswers.filter {
+                                                $0 != answer.answerId
+                                            }
                                         )
                                     } else {
                                         updateSelectedAnswers(
-                                            quizState.selectedAnswers + [answer.answerId]
+                                            quizState.selectedAnswers + [
+                                                answer.answerId
+                                            ]
                                         )
                                     }
                                 }
                             }) {
                                 HStack {
                                     if quizData.answerCellType == 0 {
-                                        Image(systemName: isSelected ? "largecircle.fill.circle" : "circle")
+                                        Image(
+                                            systemName: isSelected
+                                                ? "largecircle.fill.circle"
+                                                : "circle"
+                                        )
+                                        .tint(Color.blue)
                                     } else {
-                                        Image(systemName: isSelected ? "checkmark.square.fill" : "square")
+                                        Image(
+                                            systemName: isSelected
+                                                ? "checkmark.square.fill"
+                                                : "square"
+                                        )
+                                        .tint(Color.blue)
                                     }
-                                    
+
                                     Text(answer.data)
                                         .font(.body)
                                         .padding(.leading, 8)
-                                    
+                                        .tint(Color.blue)
+
                                     Spacer()
                                 }
                                 .padding(8)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .background(
                                     RoundedRectangle(cornerRadius: 8)
-                                        .stroke(isSelected ? Color.blue : Color.gray, lineWidth: 1)
-                                        .background(
+                                        .fill(backgroundColor)
+                                        .overlay(
                                             RoundedRectangle(cornerRadius: 8)
-                                                .fill(backgroundColor)
+                                                .stroke(
+                                                    isSelected
+                                                        ? Color.blue
+                                                        : Color.gray,
+                                                    lineWidth: 2
+                                                )
                                         )
+                                        .padding(1)  // optional, ensures stroke is fully visible
                                 )
                             }
                         }
                     }
                 }
-                
+
                 // Explanation
                 if quizState.showExplanation {
                     Spacer().frame(height: 16)
@@ -107,7 +132,7 @@ struct QuizBody: View {
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            
+
             // Buttons
             QuizButtons(
                 quizState: quizState,

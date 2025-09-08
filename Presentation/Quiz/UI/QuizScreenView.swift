@@ -1,29 +1,30 @@
-import SwiftUI
 import Combine
+import SwiftUI
 
 struct QuizScreenView: View {
     var quizScreenData: QuizScreenData?
     var quizId: Int
-    
+
     @Binding var path: [AppDestination]
-    
+
     @ObservedObject var viewModel: QuizViewModel = QuizViewModel()
     @State private var showExitConfirmationDialog = false
     @State private var cancellables = Set<AnyCancellable>()
-    
+
     var body: some View {
         // Main content
         PlaceholderScaffold(
-            toolbarConfig: QuizAppToolbar(
+            navConfig: NavigationBarConfig(
                 title: quizScreenData?.quizSection?.title ?? "",
-                navigationIcon: "arrow.left",
-                navigationIconContentDescription: "Back",
-                onNavigationClick: {
-                    showExitConfirmationDialog = viewModel.showExitConfirmationDialog()
-                    if !showExitConfirmationDialog {
-                        print("Navigate back") // replace with navigation logic if needed
+                navAction: {
+                    if viewModel.showExitConfirmationDialog() {
+                        // show the confirmation dialog
+                        showExitConfirmationDialog = true
+                    } else if !path.isEmpty {
+                        // just pop if no confirmation needed
+                        path.removeLast()
                     }
-                }
+                },
             ),
             uiState: viewModel.state,
             onRetryClicked: {
@@ -35,7 +36,9 @@ struct QuizScreenView: View {
                 quizData: data,
                 quizState: viewModel.quizState,
                 updateSelectedAnswers: { answers in
-                    viewModel.handleIntent(.updateSelectedAnswers(answers: answers))
+                    viewModel.handleIntent(
+                        .updateSelectedAnswers(answers: answers)
+                    )
                 },
                 submitAnswer: {
                     viewModel.handleIntent(.submitAnswer)
@@ -52,23 +55,32 @@ struct QuizScreenView: View {
             )
         }
         .onReceive(viewModel.navigationEvents) { event in
-                switch event {
-                case .navigateToResult:
-                    // Remove QuizScreen from path
-                    if !path.isEmpty, case .quizScreen = path.last {
-                        path.removeLast()
-                    }
-                    // Navigate to ResultScreen
-                    path.append(.resultScreen(key: quizScreenData?.quizSection?.fileName ?? ""))
-                    print("Navigate to result (skipped for now)")
+            switch event {
+            case .navigateToResult:
+                // Remove QuizScreen from path
+                if !path.isEmpty, case .quizScreen = path.last {
+                    path.removeLast()
                 }
+                // Navigate to ResultScreen
+                path.append(
+                    .resultScreen(
+                        key: quizScreenData?.quizSection?.fileName ?? ""
+                    )
+                )
+                print("Navigate to result (skipped for now)")
             }
+        }
         .alert(isPresented: $showExitConfirmationDialog) {
             Alert(
                 title: Text("Exit Quiz"),
                 message: Text("Are you sure you want to exit?"),
                 primaryButton: .destructive(Text("Confirm")) {
-                    print("Exit screen") // replace with popBackStack logic
+                    print("Exit screen")  // replace with popBackStack logic
+                    if !path.isEmpty {
+                        path.removeLast()
+                    } else {
+                        // fallback: do nothing
+                    }
                 },
                 secondaryButton: .cancel()
             )
@@ -76,19 +88,18 @@ struct QuizScreenView: View {
         .onAppear {
             loadData()
         }
-        .ignoresSafeArea(edges: .top)
     }
-    
+
     // MARK: - Private Functions
     private func navigateToNextQuestion() {
         // Tell the view model to move to next question
         viewModel.handleIntent(.nextQuestion)
-        
+
         // Optionally log for debugging
         let nextQuizId = viewModel.getQuizId()
         print("Navigated to quiz id: \(nextQuizId)")
     }
-    
+
     private func loadData() {
         if let data = quizScreenData {
             viewModel.handleIntent(.loadQuiz(data: data))
@@ -101,12 +112,12 @@ struct QuizScreenView: View {
 struct StatefulPreviewWrapper<Value, Content: View>: View {
     @State private var value: Value
     private let content: (Binding<Value>) -> Content
-    
+
     init(_ value: Value, content: @escaping (Binding<Value>) -> Content) {
         self._value = State(initialValue: value)
         self.content = content
     }
-    
+
     var body: some View {
         content($value)
     }
@@ -119,15 +130,17 @@ struct QuizSetScreen_Previews: PreviewProvider {
             QuizScreenView(
                 quizScreenData: QuizScreenData(
                     quizTitle: "General Knowledge Quiz",
-                    quizDescription: "A simple quiz to test your general knowledge.",
-                    quizSection:  QuizSetData.SectionItem(
-                        title : "Kotlin Basics: Syntax and Variables",
-                        description : "Core Kotlin syntax and variable declarations",
-                        position : 22,
-                        fileName : "kotlin_1.json",
-                        previousResult : generateMockResultData()
+                    quizDescription:
+                        "A simple quiz to test your general knowledge.",
+                    quizSection: QuizSetData.SectionItem(
+                        title: "Kotlin Basics: Syntax and Variables",
+                        description:
+                            "Core Kotlin syntax and variable declarations",
+                        position: 22,
+                        fileName: "kotlin_1.json",
+                        previousResult: generateMockResultData()
                     ),
-                    currentQuizPosition:  1
+                    currentQuizPosition: 1
                 ),
                 quizId: 1,
                 path: pathBinding
@@ -152,15 +165,17 @@ func generateMockResultData() -> ResultData {
             result: false,
             answerSectionTitle: "Science",
             correctAnswer: ["Mars"],
-            explanation: "Mars is called the Red Planet due to its reddish appearance.",
+            explanation:
+                "Mars is called the Red Planet due to its reddish appearance.",
             isSkipped: false
-        )
+        ),
     ]
-    
+
     let totalCorrect = mockItems.filter { $0.result }.count
     let totalQuestions = mockItems.count
-    let percentage = totalQuestions > 0 ? (totalCorrect * 100 / totalQuestions) : 0
-    
+    let percentage =
+        totalQuestions > 0 ? (totalCorrect * 100 / totalQuestions) : 0
+
     return ResultData(
         quizTitle: "General Knowledge Quiz",
         quizDescription: "A simple quiz to test your general knowledge.",
@@ -170,4 +185,3 @@ func generateMockResultData() -> ResultData {
         resultPercentage: percentage
     )
 }
-

@@ -14,6 +14,6 @@ class BaseViewModel<T>: ObservableObject {
     func setError(message: String) {
         state = .error(message)
     }
-    
+
     static var ERROR_DATA_NOT_FOUND: String { "Data not found" }
 }

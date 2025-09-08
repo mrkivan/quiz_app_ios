@@ -1,6 +1,6 @@
 import Foundation
 
-struct QuizState : Codable, Hashable {
+struct QuizState: Codable, Hashable {
     var selectedAnswers: [Int] = []
     var isSubmitted: Bool = false
     var showExplanation: Bool = false

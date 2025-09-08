@@ -1,15 +1,15 @@
-import Foundation
 import Combine
+import Foundation
 
 final class QuizRepositoryImpl: QuizRepository {
     private let api: QuizAPI
     private let cache: CacheManager
-    
+
     init(api: QuizAPI, cache: CacheManager) {
         self.api = api
         self.cache = cache
     }
-    
+
     func getDashboardData() -> AnyPublisher<Resource<DashboardData>, Never> {
         Future<Resource<DashboardData>, Never> { promise in  // ← 'promise' is the closure parameter
             // Check cache first
@@ -23,7 +23,7 @@ final class QuizRepositoryImpl: QuizRepository {
                 switch result {
                 case .success(let dto):
                     let data = dto.toDomain()
-                    self.cache.saveDashboard(dto) // save DTO
+                    self.cache.saveDashboard(dto)  // save DTO
                     promise(.success(.success(data)))
                 case .failure(let error):
                     promise(.success(.failure(error)))
@@ -32,8 +32,9 @@ final class QuizRepositoryImpl: QuizRepository {
         }
         .eraseToAnyPublisher()
     }
-    
-    func getQuizListByTopic(topic: String) -> AnyPublisher<QuizSetData?, Never> {
+
+    func getQuizListByTopic(topic: String) -> AnyPublisher<QuizSetData?, Never>
+    {
         Future<QuizSetData?, Never> { promise in
             if let cached = self.cache.getDashboard() {
                 let data = cached.items.first { $0.topic == topic }
@@ -43,15 +44,17 @@ final class QuizRepositoryImpl: QuizRepository {
             }
         }.eraseToAnyPublisher()
     }
-    
-    func getQuizzesBySetAndTopic(fileName: String) -> AnyPublisher<Resource<[QuizData]>, Never> {
+
+    func getQuizzesBySetAndTopic(fileName: String) -> AnyPublisher<
+        Resource<[QuizData]>, Never
+    > {
         Future<Resource<[QuizData]>, Never> { promise in
             if let cached = self.cache.getQuiz(key: fileName) {
                 let quizzes = cached.items.map { $0.toDomain() }
                 promise(.success(.success(quizzes)))
                 return
             }
-            
+
             self.api.getQuizSet(fileName: fileName) { result in
                 switch result {
                 case .success(let dto):

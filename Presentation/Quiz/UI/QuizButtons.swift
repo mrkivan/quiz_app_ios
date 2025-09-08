@@ -6,10 +6,10 @@ struct QuizButtons: View {
     var skipQuestion: () -> Void
     var moveToNextQuestion: () -> Void
     var navigateToResultScreen: () -> Void
-    
+
     @State private var showSkipDialog = false
     @State private var showSubmitConfirmationDialog = false
-    
+
     var body: some View {
         VStack {
             HStack(spacing: 16) {
@@ -20,9 +20,13 @@ struct QuizButtons: View {
                     Text("Skip")
                         .frame(maxWidth: .infinity)
                 }
-                .disabled(quizState.isSubmitted || !quizState.selectedAnswers.isEmpty || quizState.isLastItem)
+                .disabled(
+                    quizState.isSubmitted || !quizState.selectedAnswers.isEmpty
+                        || quizState.isLastItem
+                )
                 .buttonStyle(.borderedProminent)
-                
+                .tint(.blue)
+
                 // Submit Button
                 Button(action: {
                     showSubmitConfirmationDialog = true
@@ -30,9 +34,12 @@ struct QuizButtons: View {
                     Text("Submit")
                         .frame(maxWidth: .infinity)
                 }
-                .disabled(quizState.selectedAnswers.isEmpty || quizState.isSubmitted)
+                .disabled(
+                    quizState.selectedAnswers.isEmpty || quizState.isSubmitted
+                )
                 .buttonStyle(.borderedProminent)
-                
+                .tint(.blue)
+
                 // Next / Result Button
                 Button(action: {
                     if quizState.isLastItem {
@@ -46,27 +53,33 @@ struct QuizButtons: View {
                 }
                 .disabled(!(quizState.isSubmitted || quizState.isLastItem))
                 .buttonStyle(.borderedProminent)
+                .tint(.blue)
             }
             .padding(.top, 16)
         }
         // Submit Confirmation Alert
-        .alert("Submit Answer?",
-               isPresented: $showSubmitConfirmationDialog) {
+        .alert(
+            "Submit Answer?",
+            isPresented: $showSubmitConfirmationDialog
+        ) {
             Button("Confirm", role: .destructive) {
                 submitAnswer()
             }
-            Button("Cancel", role: .cancel) { }
+            Button("Cancel", role: .cancel) {}
         } message: {
             Text("Are you sure you want to submit your answer?")
         }
-        
+
         // Skip Confirmation Alert
-        .alert("Skip Question?",
-               isPresented: $showSkipDialog) {
+        .alert(
+            "Skip Question?",
+            isPresented: $showSkipDialog
+        ) {
             Button("Skip", role: .destructive) {
                 skipQuestion()
             }
-            Button("Cancel", role: .cancel) { }
+            .tint(.blue)
+            Button("Cancel", role: .cancel) {}
         } message: {
             Text("Are you sure you want to skip this question?")
         }

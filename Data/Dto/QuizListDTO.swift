@@ -8,8 +8,8 @@ struct QuizListDTO: Codable {
         let questionId: Int
         let question: String
         let answerCellType: Int
-        let selectedOptions: [Int]?          // nullable
-        let answerSectionTitle: String?      // optional
+        let selectedOptions: [Int]?  // nullable
+        let answerSectionTitle: String?  // optional
         let explanation: String
         let answerCellList: [AnswerCellDTO]
         let correctAnswer: CorrectAnswerDTO

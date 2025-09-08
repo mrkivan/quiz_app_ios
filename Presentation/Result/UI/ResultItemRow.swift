@@ -1,5 +1,6 @@
-import SwiftUICore
 import SwiftUI
+import SwiftUICore
+
 struct ResultItemRow: View {
     let item: ResultData.Item
 

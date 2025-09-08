@@ -1,24 +1,29 @@
-import SwiftUICore
 import SwiftUI
+import SwiftUICore
 
 struct ResultScreenView: View {
     let key: String
     @Binding var path: [AppDestination]
-    
+
     @ObservedObject var viewModel: ResultViewModel = ResultViewModel()
     @Environment(\.presentationMode) var presentationMode
-    
+
     @State private var selectedTabIndex: Int = 0
-    
+
     var body: some View {
         PlaceholderScaffold(
-            toolbarConfig: QuizAppToolbar(
+            navConfig: NavigationBarConfig(
                 title: viewModel.stateTitle,
-                navigationIcon: "arrow.left",
-                navigationIconContentDescription: "Back",
-                onNavigationClick: {
+                navAction: {
                     presentationMode.wrappedValue.dismiss()
-                }
+                    // custom pop behaviour
+                    if !path.isEmpty {
+                        path.removeLast()
+                    } else {
+                        // fallback: do nothing
+                    }
+                },
+                useLargeTitle: false
             ),
             uiState: viewModel.state,
             onRetryClicked: {
@@ -29,14 +34,17 @@ struct ResultScreenView: View {
             VStack(spacing: 16) {
                 // Summary Card
                 ResultReportCard(data: data)
-                
+
                 // Tabs
                 let tabs: [(String, [ResultData.Item])] = [
                     ("Correct (\(data.totalCorrectItems))", data.correctItems),
                     ("Skipped (\(data.totalSkippedItems))", data.skippedItems),
-                    ("Incorrect (\(data.totalInCorrectItems))", data.incorrectItems)
-                ].filter { !$0.1.isEmpty } // remove empty tabs
-                
+                    (
+                        "Incorrect (\(data.totalInCorrectItems))",
+                        data.incorrectItems
+                    ),
+                ].filter { !$0.1.isEmpty }  // remove empty tabs
+
                 VStack {
                     Picker("", selection: $selectedTabIndex) {
                         ForEach(0..<tabs.count, id: \.self) { index in
@@ -45,10 +53,10 @@ struct ResultScreenView: View {
                     }
                     .pickerStyle(SegmentedPickerStyle())
                     .padding(.bottom, 8)
-                    
+
                     // List of items for selected tab
                     let filteredItems = tabs[safe: selectedTabIndex]?.1 ?? []
-                    
+
                     ScrollView {
                         LazyVStack(spacing: 16) {
                             ForEach(filteredItems, id: \.questionId) { item in
@@ -65,7 +73,6 @@ struct ResultScreenView: View {
         .onAppear {
             viewModel.getResult(key: key)
         }
-        .ignoresSafeArea(edges: .top)
     }
 }
 
@@ -75,8 +82,6 @@ extension Array {
         (indices.contains(index)) ? self[index] : nil
     }
 }
-
-
 
 // MARK: - ViewModel helper
 extension ResultViewModel {

@@ -1,64 +1,31 @@
 import SwiftUI
 
-// MARK: - Toolbar Models
-struct QuizAppToolbar {
-    var title: String = ""
-    var navigationIcon: String? = nil                 // SF Symbol name
-    var navigationIconContentDescription: String? = nil
-    var onNavigationClick: (() -> Void)? = nil
-    var actions: [ToolbarAction] = []
+struct NavigationBarConfig {
+    var title: String
+    var navAction: (() -> Void)? = nil  // optional custom action for back
+    var useLargeTitle: Bool = false
 }
 
-struct ToolbarAction {
-    var icon: String                                  // SF Symbol name
-    var contentDescription: String
-    var onClick: () -> Void
-}
-
-// MARK: - Top App Bar
-import SwiftUI
-
-struct QuizAppTopAppBar: View {
-    let toolbarConfig: QuizAppToolbar
-
-    var body: some View {
-        HStack {
-            // Navigation Icon
-            if let navIcon = toolbarConfig.navigationIcon {
-                Button(action: { toolbarConfig.onNavigationClick?() }) {
-                    Image(systemName: navIcon)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 24, height: 24)
-                        .foregroundColor(.white)
-                }
-            }
-
-            // Title
-            Text(toolbarConfig.title)
-                .font(.headline)
-                .foregroundColor(.white)
-                .lineLimit(1)
-                .truncationMode(.tail)
-                .frame(maxWidth: .infinity, alignment: .center) // ✅ center align
-
-            // Actions
-            HStack(spacing: 16) {
-                ForEach(toolbarConfig.actions, id: \.contentDescription) { action in
-                    Button(action: action.onClick) {
-                        Image(systemName: action.icon)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 24, height: 24)
-                            .foregroundColor(.white)
+extension View {
+    func appNavigationBar(_ config: NavigationBarConfig) -> some View {
+        self
+            .navigationTitle(config.title)
+            .navigationBarTitleDisplayMode(
+                config.useLargeTitle ? .large : .inline
+            )
+            .toolbar {
+                // Only show custom leading button if navAction is provided
+                if let navAction = config.navAction {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button(action: navAction) {
+                            Image(systemName: "chevron.backward")
+                                .imageScale(.large)
+                        }
+                        .accessibilityLabel(Text("Back"))
                     }
                 }
             }
-        }
-        .padding(.horizontal, 16)
-        .padding(.top, UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0) // add status bar height
-        .padding(.bottom, 12)
-        .background(Color.blue)
-        .edgesIgnoringSafeArea(.top) // extend behind status bar
+            // Hide the default back button if we show a custom one
+            .navigationBarBackButtonHidden(config.navAction != nil)
     }
 }

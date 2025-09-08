@@ -11,13 +11,19 @@ struct BaseCardView<Content: View>: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(16)
         .background(
-            RoundedRectangle(cornerRadius: AppCardDefaults.shape, style: .continuous)
-                .fill(AppCardDefaults.colors)
-                .shadow(color: .black.opacity(0.2),
-                        radius: AppCardDefaults.elevation,
-                        x: 0, y: 2)
+            RoundedRectangle(
+                cornerRadius: AppCardDefaults.shape,
+                style: .continuous
+            )
+            .fill(AppCardDefaults.colors)
+            .shadow(
+                color: .black.opacity(0.2),
+                radius: AppCardDefaults.elevation,
+                x: 0,
+                y: 2
+            )
         )
-        .contentShape(Rectangle()) // makes entire area tappable
+        .contentShape(Rectangle())  // makes entire area tappable
         .onTapGesture {
             onClick()
         }

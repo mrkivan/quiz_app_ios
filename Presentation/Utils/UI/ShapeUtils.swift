@@ -31,11 +31,11 @@ struct SpacerLargeWidth: View {
 // MARK: - Circle with Number
 struct CircleWithNumber: View {
     let number: Int
-    
+
     var body: some View {
         ZStack {
             Circle()
-                .fill(Color.accentColor) // similar to MaterialTheme.primary
+                .fill(Color.blue)
                 .frame(width: 40, height: 40)
             Text("\(number)")
                 .foregroundColor(.white)
@@ -48,7 +48,7 @@ struct CircleWithNumber: View {
 struct QuizProgressWithShape: View {
     let currentQuestion: Int
     let totalQuestions: Int
-    
+
     var body: some View {
         Text("\(currentQuestion) / \(totalQuestions)")
             .font(.title3)
@@ -73,47 +73,55 @@ struct RoundedCornerShape: Shape {
     var topRight: CGFloat = 0
     var bottomLeft: CGFloat = 0
     var bottomRight: CGFloat = 0
-    
+
     func path(in rect: CGRect) -> Path {
         var path = Path()
-        
+
         let w = rect.size.width
         let h = rect.size.height
-        
-        let tr = min(min(topRight, h/2), w/2)
-        let tl = min(min(topLeft, h/2), w/2)
-        let bl = min(min(bottomLeft, h/2), w/2)
-        let br = min(min(bottomRight, h/2), w/2)
-        
+
+        let tr = min(min(topRight, h / 2), w / 2)
+        let tl = min(min(topLeft, h / 2), w / 2)
+        let bl = min(min(bottomLeft, h / 2), w / 2)
+        let br = min(min(bottomRight, h / 2), w / 2)
+
         path.move(to: CGPoint(x: w / 2.0, y: 0))
         path.addLine(to: CGPoint(x: w - tr, y: 0))
-        path.addArc(center: CGPoint(x: w - tr, y: tr),
-                    radius: tr,
-                    startAngle: Angle(degrees: -90),
-                    endAngle: Angle(degrees: 0),
-                    clockwise: false)
-        
+        path.addArc(
+            center: CGPoint(x: w - tr, y: tr),
+            radius: tr,
+            startAngle: Angle(degrees: -90),
+            endAngle: Angle(degrees: 0),
+            clockwise: false
+        )
+
         path.addLine(to: CGPoint(x: w, y: h - br))
-        path.addArc(center: CGPoint(x: w - br, y: h - br),
-                    radius: br,
-                    startAngle: Angle(degrees: 0),
-                    endAngle: Angle(degrees: 90),
-                    clockwise: false)
-        
+        path.addArc(
+            center: CGPoint(x: w - br, y: h - br),
+            radius: br,
+            startAngle: Angle(degrees: 0),
+            endAngle: Angle(degrees: 90),
+            clockwise: false
+        )
+
         path.addLine(to: CGPoint(x: bl, y: h))
-        path.addArc(center: CGPoint(x: bl, y: h - bl),
-                    radius: bl,
-                    startAngle: Angle(degrees: 90),
-                    endAngle: Angle(degrees: 180),
-                    clockwise: false)
-        
+        path.addArc(
+            center: CGPoint(x: bl, y: h - bl),
+            radius: bl,
+            startAngle: Angle(degrees: 90),
+            endAngle: Angle(degrees: 180),
+            clockwise: false
+        )
+
         path.addLine(to: CGPoint(x: 0, y: tl))
-        path.addArc(center: CGPoint(x: tl, y: tl),
-                    radius: tl,
-                    startAngle: Angle(degrees: 180),
-                    endAngle: Angle(degrees: 270),
-                    clockwise: false)
-        
+        path.addArc(
+            center: CGPoint(x: tl, y: tl),
+            radius: tl,
+            startAngle: Angle(degrees: 180),
+            endAngle: Angle(degrees: 270),
+            clockwise: false
+        )
+
         path.closeSubpath()
         return path
     }
@@ -121,26 +129,29 @@ struct RoundedCornerShape: Shape {
 
 // MARK: - Circular Percentage Progress
 struct CircularPercentageProgress: View {
-    let progress: Double // 0.0..1.0
+    let progress: Double  // 0.0..1.0
     let size: CGFloat
     let strokeWidth: CGFloat
     let progressColor: Color
     let backgroundColor: Color
     let percentageTextStyle: Font
-    
+
     var body: some View {
         ZStack {
             // Background circle
             Circle()
                 .stroke(lineWidth: strokeWidth)
                 .foregroundColor(backgroundColor)
-            
+
             // Progress arc
             Circle()
                 .trim(from: 0, to: progress)
-                .stroke(progressColor, style: StrokeStyle(lineWidth: strokeWidth, lineCap: .round))
+                .stroke(
+                    progressColor,
+                    style: StrokeStyle(lineWidth: strokeWidth, lineCap: .round)
+                )
                 .rotationEffect(.degrees(-90))
-            
+
             // Percentage text
             Text("\(Int(progress * 100))%")
                 .font(percentageTextStyle)
@@ -155,9 +166,9 @@ struct ComposeToSwiftUIPreviews: PreviewProvider {
     static var previews: some View {
         VStack(spacing: 20) {
             CircleWithNumber(number: 20)
-            
+
             QuizProgressWithShape(currentQuestion: 22, totalQuestions: 30)
-            
+
             CircularPercentageProgress(
                 progress: 0.7,
                 size: 120,

@@ -23,6 +23,6 @@ let mockDashboardItem = DashboardData.Item(
             description: "Declaring and using functions and lambdas",
             position: 3,
             fileName: "kotlin_section_3.json"
-        )
+        ),
     ]
 )

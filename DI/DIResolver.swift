@@ -1,30 +1,37 @@
-import Resolver
-import Foundation
 import Alamofire
+import Foundation
+import Resolver
 
 extension Resolver: ResolverRegistering {
     public static func registerAllServices() {
         // MARK: - Core
         register { Constants.baseURL }
-        
+
         // MARK: - Cache
         register { CacheManager() }
-        
+
         // MARK: - Session
         register { () -> Session in
             let configuration = URLSessionConfiguration.default
             configuration.timeoutIntervalForRequest = 30
             configuration.timeoutIntervalForResource = 60
             let monitors: [EventMonitor] = [NetworkLogger()]
-            return Session(configuration: configuration, eventMonitors: monitors)
+            return Session(
+                configuration: configuration,
+                eventMonitors: monitors
+            )
         }
 
         // MARK: - API
-        register { QuizAPIService(baseURL: resolve(), session: resolve()) as QuizAPI }
-
+        register {
+            QuizAPIService(baseURL: resolve(), session: resolve()) as QuizAPI
+        }
 
         // MARK: - Repository
-        register { QuizRepositoryImpl(api: resolve(), cache: resolve()) as QuizRepository }
+        register {
+            QuizRepositoryImpl(api: resolve(), cache: resolve())
+                as QuizRepository
+        }
 
         // MARK: - UseCases
         register { GetDashboardDataUseCase(repository: resolve()) }

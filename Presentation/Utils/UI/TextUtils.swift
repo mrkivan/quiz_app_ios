@@ -3,10 +3,10 @@ import SwiftUI
 // MARK: - Toolbar Title
 struct ToolbarTitle: View {
     let title: String
-    
+
     var body: some View {
         Text(title)
-            .font(.title3) // similar to MaterialTheme.typography.titleMedium
+            .font(.title3)  // similar to MaterialTheme.typography.titleMedium
             .lineLimit(1)
             .truncationMode(.tail)
     }
@@ -15,7 +15,7 @@ struct ToolbarTitle: View {
 // MARK: - Dashboard Item Title
 struct TvDashboardTitle: View {
     let text: String
-    
+
     var body: some View {
         Text(text)
             .font(.system(size: 16, weight: .bold))
@@ -28,10 +28,10 @@ struct TvDashboardTitle: View {
 // MARK: - Quiz Body Title
 struct TvQuizBodyTitle: View {
     let text: String
-    
+
     var body: some View {
         Text(text)
-            .font(.title3) // titleMedium
+            .font(.title3)  // titleMedium
             .lineLimit(1)
             .truncationMode(.tail)
     }
@@ -40,10 +40,10 @@ struct TvQuizBodyTitle: View {
 // MARK: - Quiz Body Description
 struct TvQuizBodyDesc: View {
     let text: String
-    
+
     var body: some View {
         Text(text)
-            .font(.body) // bodyMedium
+            .font(.body)  // bodyMedium
             .lineLimit(2)
             .truncationMode(.tail)
     }
@@ -52,40 +52,40 @@ struct TvQuizBodyDesc: View {
 // MARK: - Medium Text
 struct TvMedium: View {
     let text: String
-    
+
     var body: some View {
         Text(text)
-            .font(.body) // bodyMedium
+            .font(.body)  // bodyMedium
     }
 }
 
 // MARK: - Large Text
 struct TvLarge: View {
     let text: String
-    
+
     var body: some View {
         Text(text)
-            .font(.title2) // adjust as needed
+            .font(.title2)  // adjust as needed
     }
 }
 
 // MARK: - Small Headline
 struct TvHeadSmall: View {
     let text: String
-    
+
     var body: some View {
         Text(text)
-            .font(.headline) // headlineSmall
+            .font(.headline)  // headlineSmall
     }
 }
 
 // MARK: - Result Title
 struct TvResultTitle: View {
     let text: String
-    
+
     var body: some View {
         Text(text)
-            .font(.title3) // titleMedium
+            .font(.title3)  // titleMedium
             .fontWeight(.bold)
     }
 }
@@ -93,10 +93,10 @@ struct TvResultTitle: View {
 // MARK: - Result Section Title
 struct TvResultSectionTitle: View {
     let text: String
-    
+
     var body: some View {
         Text(text)
-            .font(.title3) // titleSmall equivalent
+            .font(.title3)  // titleSmall equivalent
             .fontWeight(.semibold)
     }
 }

@@ -6,20 +6,28 @@ final class NetworkLogger: EventMonitor {
 
     // Request start
     func requestDidResume(_ request: Request) {
-        print("➡️ Request Started: \(request.request?.httpMethod ?? "") \(request.request?.url?.absoluteString ?? "")")
-        if let headers = request.request?.allHTTPHeaderFields, !headers.isEmpty {
+        print(
+            "➡️ Request Started: \(request.request?.httpMethod ?? "") \(request.request?.url?.absoluteString ?? "")"
+        )
+        if let headers = request.request?.allHTTPHeaderFields, !headers.isEmpty
+        {
             print("Headers: \(headers)")
         }
         if let body = request.request?.httpBody,
-           let bodyString = String(data: body, encoding: .utf8) {
+            let bodyString = String(data: body, encoding: .utf8)
+        {
             print("Body: \(bodyString)")
         }
     }
 
     // Request finished and response received
-    func request<Value>(_ request: DataRequest,
-                        didParseResponse response: DataResponse<Value, AFError>) {
-        print("✅ Response for: \(request.request?.url?.absoluteString ?? "Unknown URL")")
+    func request<Value>(
+        _ request: DataRequest,
+        didParseResponse response: DataResponse<Value, AFError>
+    ) {
+        print(
+            "✅ Response for: \(request.request?.url?.absoluteString ?? "Unknown URL")"
+        )
         print("Status code: \(response.response?.statusCode ?? 0)")
 
         // Capture raw data safely (even if decoded)
@@ -39,10 +47,10 @@ final class NetworkLogger: EventMonitor {
 
         // Log decoding result
         switch response.result {
-            case .success(let value):
-                print("✅ Decoded: \(value)")
-            case .failure(let error):
-                print("❌ Error: \(error)")
+        case .success(let value):
+            print("✅ Decoded: \(value)")
+        case .failure(let error):
+            print("❌ Error: \(error)")
         }
     }
 }

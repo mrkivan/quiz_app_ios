@@ -5,7 +5,7 @@ extension AnyTransition {
     static var horizontalSlide: AnyTransition {
         AnyTransition.asymmetric(
             insertion: .move(edge: .trailing),  // enter from right
-            removal: .move(edge: .leading)      // exit to left
+            removal: .move(edge: .leading)  // exit to left
         )
     }
 }
@@ -21,7 +21,7 @@ extension AnyTransition {
 // MARK: - Example Usage
 struct AnimatedView: View {
     @State private var showSecond = false
-    
+
     var body: some View {
         ZStack {
             if showSecond {
