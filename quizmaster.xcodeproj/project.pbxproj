@@ -49,9 +49,9 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		691F4CEB2E6C3B9D00F8351A /* App */ = {
+		691F4CEB2E6C3B9D00F8351A /* quizmaster */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = App;
+			path = quizmaster;
 			sourceTree = "<group>";
 		};
 		691F4CF92E6C3B9E00F8351A /* quizmasterTests */ = {
@@ -62,31 +62,6 @@
 		691F4D032E6C3B9E00F8351A /* quizmasterUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = quizmasterUITests;
-			sourceTree = "<group>";
-		};
-		691F4D692E6C4A4D00F8351A /* Presentation */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Presentation;
-			sourceTree = "<group>";
-		};
-		691F4D782E6C4A5100F8351A /* Data */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Data;
-			sourceTree = "<group>";
-		};
-		691F4D7D2E6C4A5500F8351A /* DI */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = DI;
-			sourceTree = "<group>";
-		};
-		691F4D8D2E6C4A5D00F8351A /* Domain */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Domain;
-			sourceTree = "<group>";
-		};
-		6950CA832E6F36B600895F3F /* en.lproj */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = en.lproj;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -122,15 +97,10 @@
 		691F4CE02E6C3B9D00F8351A = {
 			isa = PBXGroup;
 			children = (
-				6950CA832E6F36B600895F3F /* en.lproj */,
-				691F4D8D2E6C4A5D00F8351A /* Domain */,
-				691F4CEB2E6C3B9D00F8351A /* App */,
+				691F4CEB2E6C3B9D00F8351A /* quizmaster */,
 				691F4CF92E6C3B9E00F8351A /* quizmasterTests */,
 				691F4D032E6C3B9E00F8351A /* quizmasterUITests */,
 				691F4CEA2E6C3B9D00F8351A /* Products */,
-				691F4D692E6C4A4D00F8351A /* Presentation */,
-				691F4D782E6C4A5100F8351A /* Data */,
-				691F4D7D2E6C4A5500F8351A /* DI */,
 			);
 			sourceTree = "<group>";
 		};
@@ -161,12 +131,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				691F4CEB2E6C3B9D00F8351A /* App */,
-				691F4D692E6C4A4D00F8351A /* Presentation */,
-				691F4D782E6C4A5100F8351A /* Data */,
-				691F4D7D2E6C4A5500F8351A /* DI */,
-				691F4D8D2E6C4A5D00F8351A /* Domain */,
-				6950CA832E6F36B600895F3F /* en.lproj */,
+				691F4CEB2E6C3B9D00F8351A /* quizmaster */,
 			);
 			name = quizmaster;
 			packageProductDependencies = (
